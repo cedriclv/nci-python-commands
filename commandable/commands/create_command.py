@@ -13,6 +13,7 @@
 #   limitations under the License.
 
 import os
+import re
 from confload import Config
 
 from commandable import Command, CommandLoader
