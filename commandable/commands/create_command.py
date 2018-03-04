@@ -81,8 +81,15 @@ class {Name}(Command):
     def create_command(self, namespace):
         print("Creating command in {}".format(namespace))
 
+        rule = re.compile("^[A-Za-z ]+$")
+
         while True:
-            command_name = input(" - Command name ([a-zA-Z]): ")
+            command_name = input(" - Command name ([a-zA-Z ]+): ").title().replace(' ', '')
+
+            if not rule.match(command_name):
+                print("Invalid command name...")
+                continue
+
             file_name = "{}.py".format(CommandLoader.to_underscore(command_name))
             file_path = os.path.join("./{}".format(namespace.replace(".", "/")), file_name)
 
@@ -90,7 +97,7 @@ class {Name}(Command):
                 print("Command name already exists, please select another name...")
                 continue
 
-            command_description = input(" - Description ([a-zA-Z ]): ")
+            command_description = input(" - Description ([a-zA-Z ]*): ")
 
             break
 
